@@ -19,7 +19,7 @@ The ELK stack is running as separate containers with the help of [docker-elk][de
 
 Test auditbeat with Elastic to see how it handles audit logs. Inspiration from [Monitoring Linux Audit Logs with auditd and Auditbeat][mla]. The [Auditbeat Reference][are] and [auditbeat.reference.yml][ary] example file is useful to read through.
 
-First run fix file permissions of the auditbeat.yml file (change default and add rules if necessary):
+First fix file permissions for the file auditbeat.yml file (change default and add rules if necessary):
 
     sudo chown root:root auditbeat/auditbeat.yml
     sudo chmod go-w auditbeat/auditbeat.yml
@@ -64,7 +64,47 @@ There isn't any real need for sudo for **sysmonLogView** but Microsoft installs 
 
 - [ ] Get logs to elastic?
 
-## Auditd and FileBeat
+## Filebeat and auditd
+
+First make sure that **auditd** is installed (started automatically).
+
+    sudo apt install -y auditd
+
+Test with Filebeat running in docker. From the page [Run Filebeat on Docker][rfd]
+
+    docker pull docker.elastic.co/beats/filebeat:8.4.3
+
+Run the Filebeat setup. It might be possible to run this in one command.
+
+    docker run --rm \
+        --network docker-elk_elk \
+        docker.elastic.co/beats/filebeat:8.4.3 \
+        setup -E setup.kibana.host=kibana:5601 \
+              -E output.elasticsearch.hosts=["elasticsearch:9200"]
+
+    docker run --rm \
+        --network docker-elk_elk \
+        docker.elastic.co/beats/filebeat:8.4.3 \
+        setup --dashboards -E setup.kibana.host=kibana:5601 \
+              -E output.elasticsearch.hosts=["elasticsearch:9200"]
+
+Fix permissions for files in the filebeat directory.
+
+	chmod 600 filebeat/*.yml
+	chown root:root filebeat/*.yml
+
+Run Filebeat:
+
+    docker run -d \
+        --name=filebeat \
+        --user=root \
+        --network docker-elk_elk \
+        --volume="$(pwd)/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro" \
+        --volume="$(pwd)/auditd.yml:/usr/share/filebeat/modules.d/auditd.yml:ro" \
+        --volume="$(pwd)/kibana.yml:/usr/share/filebeat/modules.d/kibana.yml:ro" \
+        --volume="/var/log/audit:/audit:ro" \
+        docker.elastic.co/beats/filebeat:8.4.3 filebeat -e --strict.perms=false
+
 
 TODO
 
@@ -74,6 +114,7 @@ TODO
   [git]: https://github.com/cyberimposters/rss-security
   [mla]: https://sematext.com/blog/auditd-logs-auditbeat-elasticsearch-logsene/
   [lrf]: https://www.elastic.co/blog/how-to-leverage-rss-feeds-to-inform-the-possibilities-with-elastic-stack
+  [rfd]: https://www.elastic.co/guide/en/beats/filebeat/current/running-on-docker.html
   [scc]: https://gist.github.com/Cyb3rWard0g/bcf1514cc340197f0076bf1da8954077
   [seb]: https://github.com/Sysinternals/SysinternalsEBPF
   [sfl]: https://github.com/Sysinternals/SysmonForLinux
