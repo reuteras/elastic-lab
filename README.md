@@ -74,7 +74,7 @@ Test with Filebeat running in docker. From the page [Run Filebeat on Docker][rfd
 
     docker pull docker.elastic.co/beats/filebeat:8.4.3
 
-Run the Filebeat setup. It might be possible to run this in one command.
+Run setup for Filebeat. It might be possible to run this in one command.
 
     docker run --rm \
         --network docker-elk_elk \
@@ -88,7 +88,7 @@ Run the Filebeat setup. It might be possible to run this in one command.
         setup --dashboards -E setup.kibana.host=kibana:5601 \
               -E output.elasticsearch.hosts=["elasticsearch:9200"]
 
-Fix permissions for files in the filebeat directory.
+Fix permissions for files in the *filebeat* directory.
 
 	chmod 600 filebeat/*.yml
 	chown root:root filebeat/*.yml
@@ -105,13 +105,22 @@ Run Filebeat:
         --volume="/var/log/audit:/audit:ro" \
         docker.elastic.co/beats/filebeat:8.4.3 filebeat -e --strict.perms=false
 
+Documentation for Filebeat and its auditd moudle:
 
-TODO
+- [Filebeat Reference][fir]
+- [Auditd module][aum]
+- [Kibana module][kim]
+- [Importing Existing Beat Dashboards][ieb]
+
 
   [are]: https://www.elastic.co/guide/en/beats/auditbeat/current/index.html
   [ary]: https://www.elastic.co/guide/en/beats/auditbeat/current/auditbeat-reference-yml.html
+  [aum]: https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-module-auditd.html
   [del]: https://github.com/deviantony/docker-elk
+  [fir]: https://www.elastic.co/guide/en/beats/filebeat/current/index.html
   [git]: https://github.com/cyberimposters/rss-security
+  [ieb]: https://www.elastic.co/guide/en/beats/devguide/8.4/import-dashboards.html
+  [kim]: https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-module-kibana.html
   [mla]: https://sematext.com/blog/auditd-logs-auditbeat-elasticsearch-logsene/
   [lrf]: https://www.elastic.co/blog/how-to-leverage-rss-feeds-to-inform-the-possibilities-with-elastic-stack
   [rfd]: https://www.elastic.co/guide/en/beats/filebeat/current/running-on-docker.html
