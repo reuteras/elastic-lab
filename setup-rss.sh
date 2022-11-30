@@ -19,7 +19,7 @@ fi
 [[ ! -d ~/rss-security ]] && git clone https://github.com/cyberimposters/rss-security.git ~/rss-security
 
 sed -i -e 's/changeme/password/' ~/docker-elk/.env
-sed -i -e 's/ELASTIC_VERSION=.*/ELASTIC_VERSION=8.4.3/' ~/docker-elk/.env
+sed -i -e 's/ELASTIC_VERSION=.*/ELASTIC_VERSION=8.5.2/' ~/docker-elk/.env
 sed -i -e 's/trial/basic/' ~/docker-elk/elasticsearch/config/elasticsearch.yml
 sed -i -e 's/xpack.security.enabled: true/xpack.security.enabled: false/' ~/docker-elk/elasticsearch/config/elasticsearch.yml
 
