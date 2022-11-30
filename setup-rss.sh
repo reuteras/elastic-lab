@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sudo apt update > /dev/null
+
 echo "Install packages. Update pip and install/update docker-compose."
 sudo apt install -y curl docker.io git python3-pip > /dev/null
 python3 -m pip install -U pip > /dev/null
@@ -55,6 +57,7 @@ echo "Open the folder ~/rss-security/kibana/saved_objects/."
 echo "Drag the detailed file and import it."
 echo ""
 read -rp "Press enter when done." dummy
+echo "${dummy}" > /dev/null
 echo ""
 if ! grep rss ~/docker-elk/logstash/pipeline/logstash.conf > /dev/null ; then
     cat ~/rss-security/logstash/rss-security-feed.conf >> ~/docker-elk/logstash/pipeline/logstash.conf
