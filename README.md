@@ -4,7 +4,7 @@ Some notes and documentation from testing the ELK stack. The final goal is to fi
 
 ## RSS
 
-This is my notes and a setup scrips to test [How to leverage RSS feeds to inform the possibilities with Elastic Stack][lrf] in a fast and easy way. It's also good to look at the [GitHub][git] repo corresponding to that blog post.
+This is my notes and a setup scrips to test [How to leverage RSS feeds to inform the possibilities with Elastic Stack][lrf] in a fast and easy way. It's also good to look at the [GitHub][git] repository corresponding to that blog post.
 
 To setup the environment from scratch run.
 
@@ -42,8 +42,8 @@ Check logs with the following command:
 More information about [SysmonForLinux][sfl] and [SysinternalsEBPF][seb] can be found here:
 
 - [Automating the deployment of Sysmon for Linux 🐧 and Azure Sentinel in a lab environment 🧪][ads]
-- [Sysmon for Linux Config][slc] - by MSTIC
-- [SysmonForLinux-CollectAll-Config.xml][scc]
+- [Sysmon for Linux config][slc] - by MSTIC
+- [SysmonForLinux-CollectAll-config.xml][scc]
 
 I tested this on a VM with Ubuntu 20.04 LTS. To get started first run the set setup script for SysmonForLinux:
 
@@ -105,12 +105,19 @@ Run Filebeat:
         --volume="/var/log/audit:/audit:ro" \
         docker.elastic.co/beats/filebeat:8.4.3 filebeat -e --strict.perms=false
 
-Documentation for Filebeat and its auditd moudle:
+Documentation for Filebeat and its auditd module:
 
 - [Filebeat Reference][fir]
 - [Auditd module][aum]
 - [Kibana module][kim]
 - [Importing Existing Beat Dashboards][ieb]
+
+## TODO
+
+### MISP - Elastic Stack - Docker
+
+Add script to make it easier to test [MISP - Elastic Stack - Docker][med]
+
 
 
   [are]: https://www.elastic.co/guide/en/beats/auditbeat/current/index.html
@@ -121,6 +128,7 @@ Documentation for Filebeat and its auditd moudle:
   [git]: https://github.com/cyberimposters/rss-security
   [ieb]: https://www.elastic.co/guide/en/beats/devguide/8.4/import-dashboards.html
   [kim]: https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-module-kibana.html
+  [med]: https://www.misp-project.org/2024/04/05/elastic-misp-docker.html/
   [mla]: https://sematext.com/blog/auditd-logs-auditbeat-elasticsearch-logsene/
   [lrf]: https://www.elastic.co/blog/how-to-leverage-rss-feeds-to-inform-the-possibilities-with-elastic-stack
   [rfd]: https://www.elastic.co/guide/en/beats/filebeat/current/running-on-docker.html
