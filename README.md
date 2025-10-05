@@ -10,7 +10,7 @@ To setup the environment from scratch run.
 
     ./setup-rss.sh
 
-Lastly you probably will like to disable sending data to Elastic. Open http://localhost:5601/app/management/kibana/settings and search for "Provide usage data".
+Lastly you probably will like to disable sending data to Elastic. Open [http://localhost:5601/app/management/kibana/settings](http://localhost:5601/app/management/kibana/settings) and search for "Provide usage data".
 
 The ELK stack is running as separate containers with the help of [docker-elk][del].
 
@@ -41,7 +41,7 @@ Check logs with the following command:
 
 More information about [SysmonForLinux][sfl] and [SysinternalsEBPF][seb] can be found here:
 
-- [Automating the deployment of Sysmon for Linux 🐧 and Azure Sentinel in a lab environment 🧪][ads]
+- Automating the deployment of Sysmon for Linux 🐧 and Azure Sentinel in a lab environment 🧪
 - [Sysmon for Linux config][slc] - by MSTIC
 - [SysmonForLinux-CollectAll-config.xml][scc]
 
@@ -90,8 +90,8 @@ Run setup for Filebeat. It might be possible to run this in one command.
 
 Fix permissions for files in the *filebeat* directory.
 
-	chmod 600 filebeat/*.yml
-	chown root:root filebeat/*.yml
+    chmod 600 filebeat/*.yml
+    chown root:root filebeat/*.yml
 
 Run Filebeat:
 
@@ -111,8 +111,6 @@ Documentation for Filebeat and its auditd module:
 - [Auditd module][aum]
 - [Kibana module][kim]
 - [Importing Existing Beat Dashboards][ieb]
-
-## TODO
 
 ### MISP - Elastic Stack - Docker
 
